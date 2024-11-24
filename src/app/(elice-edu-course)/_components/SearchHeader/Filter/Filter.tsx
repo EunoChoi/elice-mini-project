@@ -51,7 +51,7 @@ const FilterTypeTitle = styled.div`
   border-right: 1px solid var(--grey4);
 
   font-size: 0.75rem;
-  font-weight: normal;
+  font-weight: 700;
   line-height: 1.5;
 `
 const FilterTypeChips = styled.div`
@@ -61,5 +61,4 @@ const FilterTypeChips = styled.div`
   align-items: center;
 
   padding: 0 0.5rem;
-  overflow-x: scroll;
 `

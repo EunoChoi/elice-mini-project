@@ -38,8 +38,8 @@ const Wrapper = styled.button`
   border-radius: 1.875rem;
   border: none;
 
-  font-size: 0.75rem;
-  font-weight: lighter;
+  font-size: 0.875rem;
+  font-weight: 300;
 
   &:hover{
     background-color: var(--grey4);

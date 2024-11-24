@@ -56,5 +56,5 @@ const SearchInput = styled.input`
   width: 100%;
   height: 2.875rem;
 
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 `
