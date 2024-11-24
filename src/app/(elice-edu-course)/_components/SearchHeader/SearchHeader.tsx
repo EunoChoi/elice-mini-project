@@ -6,7 +6,7 @@ const SearchHeader = () => {
   return (
     <>
       <Search />
-      <Space rem={0.625} />
+      <Space $rem={0.625} />
       <Filter />
     </>
   );

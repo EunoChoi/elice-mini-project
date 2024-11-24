@@ -11,7 +11,7 @@ const SearchResult = () => {
 
   return (<>
     <Header>전체 {0}개</Header>
-    <Space rem={0.875} />
+    <Space $rem={0.875} />
     <CourseCards>
       <CourseCard />
       <CourseCard />

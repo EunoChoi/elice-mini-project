@@ -6,14 +6,16 @@ import styled from "styled-components";
 import Space from "@/common/components/Space";
 import CourseSearchResult from "./_components/SearchResult/SearchResult";
 import SearchHeader from "./_components/SearchHeader/SearchHeader";
+import PageNavigation from "@/common/components/PageNavigation";
 
 export default function Home() {
   return (
     <Wrapper>
       <SearchHeader />
-      <Space rem={0.625} />
+      <Space $rem={0.625} />
       <CourseSearchResult />
-      <Space rem={0.75} />
+      <Space $rem={0.75} />
+      <PageNavigation />
     </Wrapper>
   );
 }
