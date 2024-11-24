@@ -14,6 +14,7 @@ export default function RootLayout({
   return (
     <html lang="kr">
       <body>
+        <link href="https://font.elice.io/css?family=Elice+DX+Neolli" rel="stylesheet" />
         {children}
       </body>
     </html>
