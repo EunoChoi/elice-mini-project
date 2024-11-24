@@ -20,6 +20,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+
+  background-color: var(--grey2);
 }
 
 *,
@@ -28,8 +30,7 @@ div {
   padding: 0;
   margin: 0;
 
-  font-family: "Elice DX Neolli", sans-serif;
-  font-weight: lighter;
+  font-family: 'Pretendard Variable', Pretendard, Malgun Gothic, Helvetica, Myriad Pro, Arial, sans-serif;
 }
 
 input {
