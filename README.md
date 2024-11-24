@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Elice Mini Project
 
-## Getting Started
 
-First, run the development server:
+## 사용 기술
+- next.js
+- reactQuery
+- axios
+- styled-component
+- jest
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 컨벤션
+- commit
+  - `feat`: 새로운 기능 추가
+  - `fix`: 버그 수정
+  - `style`: UI/스타일 변경
+  - `refactor`: 성능 및 기능 개선
+  - `docs`: 문서 수정
+  - `test`: 테스트 코드 추가/수정
+  - `chore`: 기타 작업
+- file, folder
+  - component file : PascalCase
+  - 일반 route file : kebab-case
+  - 병렬 route file : camelCase
+- variable
+  - interface, type : PascalCase
+  - 컴포넌트 function : PascalCase
+  - 일반 function : camelCase
