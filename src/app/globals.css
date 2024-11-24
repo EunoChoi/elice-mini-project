@@ -9,6 +9,7 @@
   --grey5: #C9CACC;
 
   --greyFont: #8d8d8d;
+  --greyFont2: #545454;
 
   --elice-violet: #6700e6;
 }
@@ -21,7 +22,9 @@ body {
   padding: 0;
 }
 
-* {
+*,
+div {
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
 
