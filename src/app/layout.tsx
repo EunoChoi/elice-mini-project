@@ -15,6 +15,7 @@ export default function RootLayout({
     <html lang="kr">
       <body>
         <link href="https://font.elice.io/css?family=Elice+DX+Neolli" rel="stylesheet" />
+        <link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
         {children}
       </body>
     </html>
