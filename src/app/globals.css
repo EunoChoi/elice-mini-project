@@ -24,11 +24,17 @@ body {
   background-color: var(--grey2);
 }
 
+button {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+}
+
 *,
 div {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  border: none;
 
   font-family: 'Pretendard Variable', Pretendard, Malgun Gothic, Helvetica, Myriad Pro, Arial, sans-serif;
 }
