@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
+  swcMinify: true,
+  images: {
+    domains: ['cdn-api.elice.io']
+  },
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 export default nextConfig;
