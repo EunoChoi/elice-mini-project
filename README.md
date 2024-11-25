@@ -28,7 +28,7 @@
 
 ### 리팩토링 전
 
-<img width="525" alt="구조도" src="https://github.com/user-attachments/assets/8efb9fbf-2278-4742-9729-8de7050f9d8a">
+<img width="855" alt="before" src="https://github.com/user-attachments/assets/909fd960-d335-42e4-bfda-2c9d601e70e6">
 
 useSearch 커스텀훅을 중심으로 프로젝트가 동작합니다. useSearch 훅은 검색, 무료/유료 칩 선택, 페이지 정보를 담는 state를 다루고 있으며 검색어 및 칩 선택 정보 변경 시 url 변경(query 추가), 변경된 url로 데이터 요청 등의 주요 기능을 가지며 동작합니다.
 
@@ -41,27 +41,33 @@ useSearch 커스텀훅을 중심으로 프로젝트가 동작합니다. useSearc
 6. 결과를 반영하여 필터, 검색 결과, 페이지 네비게이션 컴포넌트 업데이트
 
 #### 문제점
-- 커스텀 훅의 state가 많은 컴포넌트에서 사용되어 프롭 드릴링 발생
-  - 하위 컴포넌트로 갈수록 빈번한 프롭 전달 필요
-  - 많은 프롭이 전달되다보니 코드가 지저분해지는 문제 발생
-- 너무 빈번한 데이터 요청
+1. 커스텀 훅의 state가 많은 컴포넌트에서 사용되어 프롭 드릴링 발생
+    - 하위 컴포넌트로 갈수록 빈번한 프롭 전달 필요
+    - 많은 프롭이 전달되다보니 코드가 지저분해지는 문제 발생
+2. 너무 빈번한 데이터 요청
 
 
 ### 리팩토링 후
 
-#### 프롭 드릴링 문제 해결
+<img width="597" alt="after" src="https://github.com/user-attachments/assets/100b6cb6-cb61-452f-b800-935a05d1f559">
+
+
+#### 1. 프롭 드릴링 문제 해결
 
 프롭 드릴링 문제를 해결하기 위해 reactQuery, zustand 사용
 
 **zustand**
+
 url 변경 및 데이터 요청에 필요한 searchKeyword, selectedChips, currentPage 등 주요 state를 zustand를 이용하여 전역에서 사용
 -> 프롭 드릴링 감소
+
 **reactQuery**
+
 프롭 전달 필요 없이 결과 데이터가 필요한 컴포넌트에서 바로 결과 데이터 사용하여 
 totalCourse, totalPage, resultCourse state 사용성 향상
 
 
-#### 빈번한 데이터 요청 문제 해결 (결과 데이터 캐싱)
+#### 2. 빈번한 데이터 요청 문제 해결 (결과 데이터 캐싱)
 
 리액트 쿼리의 데이터 캐싱 기능 사용
 - 결과 데이터가 퀴리키로 구분되어 캐싱
