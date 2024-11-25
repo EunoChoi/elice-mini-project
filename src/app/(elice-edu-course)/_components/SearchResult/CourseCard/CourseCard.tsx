@@ -1,17 +1,30 @@
 'use client';
 
-import { dummyClass } from "@/constants/dummyClass";
+// import { dummyClass } from "@/constants/dummyClass";
 import Image from "next/image";
 import styled from "styled-components";
 
 import { makeWon } from "@/common/functions/makeWon";
 import DiscountedPrice from "./DiscountedPrice";
 
-const CourseCard = () => {
+const CourseCard = ({ resultValue }: any) => {
+  const priceType = () => {
+    console.log(resultValue?.is_free);
+    if (resultValue.is_free === true) return <Free>무료</Free>;
+    else if (resultValue.enroll_type === 4) return <Sub>구독</Sub>;
+    else if (resultValue.is_discounted === true) {
+      return <DiscountedPrice
+        price={Number(resultValue?.price)}
+        discountedPrice={Number(resultValue?.discounted_price)}
+        discountRate={Number(resultValue?.discount_rate)}
+      />
+    }
+    else { return <>{makeWon(Number(resultValue?.price))}</> }
+  }
 
-  const tags = dummyClass.tags
+  const tags = resultValue.tags
     .filter((v: { tag_type: number, id: number }) => v.tag_type === 3).map(
-      (v) => {
+      (v: any) => {
         if (v.id === 12) return '프로그래밍 기초';
         if (v.id === 13) return '데이터 분석';
         if (v.id === 14) return '웹';
@@ -19,29 +32,23 @@ const CourseCard = () => {
         if (v.id === 23) return '알고리즘';
       }
     );
-  return (<Wrapper>
-    <CourseImg src={dummyClass.image_file_url} width={300} height={300} alt={`${dummyClass.title}`} />
-    <CourseText>
-      <div>
-        {tags.length === 0 ?
-          <Tag>미분류</Tag> :
-          <>{tags.map(tag => <Tag key={tag}>{tag}</Tag>)}</>
-        }
-      </div>
-      <div className="title">{dummyClass.title}</div>
-      <div className="description">{dummyClass.short_description}</div>
-    </CourseText>
-    <CoursePrice>
-      {dummyClass.is_free && <Free>무료</Free>}
-      {dummyClass.is_discounted &&
-        <DiscountedPrice
-          price={Number(dummyClass.price)}
-          discountedPrice={Number(dummyClass.discounted_price)}
-          discountRate={Number(dummyClass.discount_rate)}
-        />}
-      {!dummyClass.is_discounted && <>{makeWon(Number(dummyClass.price))}</>}
-    </CoursePrice>
-  </Wrapper>);
+  return (
+    <Wrapper>
+      {resultValue?.image_file_url && <CourseImg src={resultValue?.image_file_url} width={300} height={300} alt={`${resultValue?.title}`} />}
+      <CourseText>
+        <div>
+          {tags.length === 0 ?
+            <Tag>미분류</Tag> :
+            <>{tags.map((tag: any) => <Tag key={tag}>{tag}</Tag>)}</>
+          }
+        </div>
+        <div className="title">{resultValue?.title}</div>
+        <div className="description">{resultValue?.short_description}</div>
+      </CourseText>
+      <CoursePrice>
+        {priceType()}
+      </CoursePrice>
+    </Wrapper>);
 }
 
 export default CourseCard;
@@ -53,6 +60,7 @@ const Wrapper = styled.div`
 
   display : flex;
   flex-direction: column;
+  align-items: center;
 
   background-color: var(--white);
   border: 1px solid rgba(225, 226, 228, 0.75);
@@ -65,6 +73,7 @@ const CourseImg = styled(Image)`
   object-fit: cover;
 `
 const CourseText = styled.div`
+  width: 100%;
   flex-grow: 1;
   padding: 1.25rem;
 
@@ -106,8 +115,9 @@ const Tag = styled.span`
   }
 `
 const CoursePrice = styled.div`
-  flex-grow: 1;
-  width: 100%;
+  /* flex-grow: 1; */
+  width: calc(100% - 2.5em);
+  height: 81px;
 
   display: flex;
   align-items: end;
@@ -115,9 +125,14 @@ const CoursePrice = styled.div`
   font-size: 1rem;
   font-weight: 700;
 
-  padding: 0px 1.25rem 1.25rem;
+  flex-shrink: 0;
+  border-top: 1px solid var(--grey4);
+  padding-bottom: 1.5rem;
   span{margin-right: 10px;}
 `
 const Free = styled.span`
   color: #00ab53;
+`
+const Sub = styled.span`
+  color: #cadc8e;
 `
