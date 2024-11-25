@@ -7,18 +7,14 @@ type Props = {
   children: React.ReactNode;
 };
 
-
-/**
- * [Client] reactQuery provider component
- */
 function RQProvider({ children }: Props) {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        refetchOnWindowFocus: true,
-        retryOnMount: true,
-        refetchOnReconnect: true,
-        retry: false,
+        // refetchOnWindowFocus: true,
+        // retryOnMount: true,
+        // refetchOnReconnect: true,
+        // retry: false,
       },
     },
   })

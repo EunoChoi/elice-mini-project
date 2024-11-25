@@ -5,7 +5,7 @@ import styled from "styled-components";
 import CourseCard from "./CourseCard/CourseCard";
 import Space from "@/common/components/Space";
 
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import { getCourses } from "../../_api/getCourse";
 import { maxLoadCount } from "@/constants/maxLoadCount";
 import { useSearchKeywordStore } from "@/store/useSearchKeywordStore";
@@ -15,7 +15,6 @@ import PageNavigation from "@/common/components/PageNavigation";
 import CourseCardEmpty from "./CourseCardEmtpy/CourseCardEmtpy";
 
 const SearchResult = () => {
-
   const { value: searchKeyword } = useSearchKeywordStore();
   const { value: selectedChips } = useSelectedChipsStore();
   let { value: currentPage } = useCurrentPageStore();
@@ -26,8 +25,8 @@ const SearchResult = () => {
   const { data: searchResult } = useQuery({
     queryKey: ['searchKeyword', searchKeyword, 'selectedChips', selectedChips, 'offset', offset, 'maxLoadCount', maxLoadCount, 'currentPage', currentPage],
     queryFn: () => updateCourses,
-    staleTime: 10 * (60 * 1000),
-    gcTime: 15 * (60 * 1000),
+    staleTime: 3600000,
+    gcTime: 3600000
   });
   const totalPage = Math.ceil(searchResult?.course_count / 20);
 
