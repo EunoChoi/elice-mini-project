@@ -183,8 +183,12 @@ const dehydratedState = dehydrate(queryClient)
 
 ### 스켈레톤 컴포넌트
 
+<img width="1303" alt="Screenshot 2024-11-26 at 6 09 46 AM" src="https://github.com/user-attachments/assets/e8aa5352-e385-4ce7-8940-30ee4cbf3bdf">
+
 reactQuery로 데이터를 받아올 때 로딩이 완료되기 이전에도 이전 데이터 값이 유지되지 않습니다. 따라서 이전 컴포넌트가 사라졌다가 새롭게 로드된 데이터로 컴포넌트가 렌더링됩니다. 이전 레이아웃이 남아있을때보다 부자연스럽게 느껴져 스켈레톤 컴포넌트를 추가하였습니다.
 
 ### 이미지 URL이 없는 경우
+
+<img width="1311" alt="Screenshot 2024-11-26 at 6 11 11 AM" src="https://github.com/user-attachments/assets/82a83434-df57-4a10-871a-401484d4a5d3">
 
 검색 결과에 나타나는 과목 카드 데이터 값 중 이미지 url을 포함하지 않는 것들 존재해 임시 이미지를 추가해주었습니다.
