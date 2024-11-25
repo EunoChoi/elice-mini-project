@@ -26,6 +26,8 @@ const SearchResult = () => {
   const { data: searchResult } = useQuery({
     queryKey: ['searchKeyword', searchKeyword, 'selectedChips', selectedChips, 'offset', offset, 'maxLoadCount', maxLoadCount, 'currentPage', currentPage],
     queryFn: () => updateCourses,
+    staleTime: 10 * (60 * 1000),
+    gcTime: 15 * (60 * 1000),
   });
   const totalPage = Math.ceil(searchResult?.course_count / 20);
 
