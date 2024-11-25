@@ -5,11 +5,16 @@ import styled from "styled-components";
 import CourseCard from "./CourseCard/CourseCard";
 import Space from "@/common/components/Space";
 
-const SearchResult = ({ result, total }: any) => {
+interface Props {
+  result: any;
+  totalCourse: number;
+}
+
+const SearchResult = ({ result, totalCourse }: any) => {
 
 
   return (<>
-    <Header>전체 {total}개</Header>
+    <Header>전체 {totalCourse}개</Header>
     <Space $rem={0.875} />
     <CourseCards>
       {result && result?.map((v: any, i: number) => <CourseCard key={i} resultValue={v} />)}

@@ -19,9 +19,8 @@ export default function useSearch() {
 
   const [current, setCurrent] = useState<number>(1);
   const [total, setTotal] = useState<number>(0);
-  const [search, setSearch] = useState<string | null>(
-    searchParams.get("keyword") || null
-  );
+  const [totalCourse, setTotalCourse] = useState<number>(0);
+  const [search, setSearch] = useState<string | null>(searchParams.get("keyword"));
   const [chips, setChips] = useState<chipData[]>(
     getChipsCondition(searchParams)
   );
@@ -34,19 +33,25 @@ export default function useSearch() {
   const updateCourses = async () => {
     const response = await getCourses(offset, count, search, chips);
     setResult(response);
+    setTotalCourse(response?.course_count);
     setTotal(response?.course_count / 20);
   };
   console.log(result);
 
 
-  useEffect(() => {
-    setCurrent(1);
-  }, [search, chips.length])
+  // useEffect(() => {
+  //   setCurrent(1);
+  // }, [search, chips.length])
+
   useEffect(() => {
     const url = makeUrl(pathname, search, chips);
     router.push(url);
-    updateCourses();
-  }, [search, chips, offset, current]);
+  }, [search, chips.length, current]);
 
-  return { search, setSearch, chips, setChips, result, current, setCurrent, total };
+  useEffect(() => {
+    updateCourses();
+
+  }, [searchParams]);
+
+  return { search, setSearch, chips, setChips, result, current, setCurrent, total, totalCourse };
 }
