@@ -4,54 +4,63 @@ import { getChipsCondition } from '../functions/getChipsCondition';
 import { makeUrl } from '../functions/makeUrl';
 import { getCourses } from '@/app/(elice-edu-course)/_api/getCourse';
 
-interface chipData {
-  name: string;
-  query_key: string;
-  query_value: string;
-  enroll_type: number;
-  is_free: boolean;
-}
+import { Result } from '@/types/Result';
+import { ChipValue } from '@/types/Chip';
+
+
 
 export default function useSearch() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [current, setCurrent] = useState<number>(1);
-  const [total, setTotal] = useState<number>(0);
-  const [totalCourse, setTotalCourse] = useState<number>(0);
-  const [search, setSearch] = useState<string | null>(searchParams.get("keyword"));
-  const [chips, setChips] = useState<chipData[]>(
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchKeyword, setSearchKeyword] = useState<string | null>(searchParams.get("keyword"));
+  const [selectedChips, setSelectedChips] = useState<ChipValue[]>(
     getChipsCondition(searchParams)
   );
-  const [result, setResult] = useState<any>();
+
+  const [result, setResult] = useState<Result>();
 
   const count = 20;
-  const offset = 20 * (current - 1);
+  const offset = 20 * (currentPage - 1);
 
 
   const updateCourses = async () => {
-    const response = await getCourses(offset, count, search, chips);
-    setResult(response);
-    setTotalCourse(response?.course_count);
-    setTotal(response?.course_count / 20);
+    const response = await getCourses(offset, count, searchKeyword, selectedChips);
+
+    const resultCourses = response?.courses;
+    const totalCourse = response?.course_count;
+    const totalPage = response?.course_count / 20;
+
+    setResult({ resultCourses, totalCourse, totalPage });
   };
-  console.log(result);
+  console.log(result?.resultCourses);
 
-
-  // useEffect(() => {
-  //   setCurrent(1);
-  // }, [search, chips.length])
 
   useEffect(() => {
-    const url = makeUrl(pathname, search, chips);
+    setCurrentPage(1);
+  }, [searchKeyword, selectedChips.length])
+
+  useEffect(() => {
+    const url = makeUrl(pathname, searchKeyword, selectedChips);
     router.push(url);
-  }, [search, chips.length, current]);
+  }, [searchKeyword, selectedChips.length, currentPage]);
 
   useEffect(() => {
     updateCourses();
 
   }, [searchParams]);
 
-  return { search, setSearch, chips, setChips, result, current, setCurrent, total, totalCourse };
+  return {
+    searchKeyword,
+    setSearchKeyword,
+    selectedChips,
+    setSelectedChips,
+    currentPage,
+    setCurrentPage,
+
+    result,
+    setResult,
+  };
 }
