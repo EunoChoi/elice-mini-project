@@ -2,11 +2,20 @@
 
 import useInput from "@/common/hooks/useInput";
 import SearchIcon from "@/common/icons/SearchIcon";
+import { useEffect } from "react";
 import styled from "styled-components";
 
-const Search = () => {
+interface Props {
+  setSearch: (s: string) => void;
+}
 
-  const { value, onChange } = useInput('');
+const Search = ({ setSearch }: Props) => {
+
+  const { value, debouncedValue, onChange } = useInput('', 500);
+
+  useEffect(() => {
+    setSearch(debouncedValue);
+  }, [debouncedValue]);
 
   return (<Wrapper>
     <SearchIconWrapper>
