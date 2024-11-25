@@ -3,15 +3,15 @@
 import { useState, useEffect } from "react";
 
 interface UseInputReturn {
-  value: string;
-  debouncedValue: string;
+  value: string | null;
+  debouncedValue: string | null;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   reset: () => void;
 }
 
-const useInput = (initialValue: string, delay: number = 500): UseInputReturn => {
-  const [value, setValue] = useState<string>(initialValue);
-  const [debouncedValue, setDebouncedValue] = useState<string>(initialValue);
+const useInput = (initialValue: string | null, delay: number = 500): UseInputReturn => {
+  const [value, setValue] = useState<string | null>(initialValue);
+  const [debouncedValue, setDebouncedValue] = useState<string | null>(initialValue);
 
   useEffect(() => {
     const timer = setTimeout(() => {

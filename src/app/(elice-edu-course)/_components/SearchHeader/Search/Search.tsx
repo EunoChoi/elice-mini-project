@@ -2,16 +2,19 @@
 
 import useInput from "@/common/hooks/useInput";
 import SearchIcon from "@/common/icons/SearchIcon";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import styled from "styled-components";
 
 interface Props {
-  setSearch: (s: string) => void;
+  setSearch: (s: string | null) => void;
 }
 
 const Search = ({ setSearch }: Props) => {
 
-  const { value, debouncedValue, onChange } = useInput('', 500);
+  const searchParams = useSearchParams();
+  const { value, debouncedValue, onChange } = useInput(searchParams.get("keyword"), 400);
+
 
   useEffect(() => {
     setSearch(debouncedValue);
@@ -24,7 +27,7 @@ const Search = ({ setSearch }: Props) => {
     <SearchInputWrapper>
       <SearchInput
         placeholder="배우고 싶은 언어, 기술을 검색해 보세요"
-        value={value}
+        value={value ? value : ''}
         onChange={onChange}
       ></SearchInput>
     </SearchInputWrapper>

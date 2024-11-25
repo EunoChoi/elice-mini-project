@@ -14,7 +14,7 @@ interface ChipData {
 interface Props {
   chips: ChipData[];
   setChips: React.Dispatch<React.SetStateAction<ChipData[]>>;
-  setSearch: (s: string) => void;
+  setSearch: (s: string | null) => void;
 }
 
 const SearchHeader = ({ chips, setChips, setSearch }: Props) => {
