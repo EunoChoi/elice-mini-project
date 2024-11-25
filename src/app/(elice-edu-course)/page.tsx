@@ -22,9 +22,7 @@ export default function Home() {
   return (
     <Wrapper>
       <SearchHeader chips={chips} setChips={setChips} setSearch={setSearch} />
-      <Space $rem={0.625} />
       <CourseSearchResult result={result?.courses} totalCourse={totalCourse} />
-      <Space $rem={0.75} />
       <PageNavigation current={current} setCurrent={setCurrent} total={total} />
     </Wrapper>
   );

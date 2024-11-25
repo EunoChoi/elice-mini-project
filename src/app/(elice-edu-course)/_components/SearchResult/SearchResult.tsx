@@ -11,19 +11,21 @@ interface Props {
 }
 
 const SearchResult = ({ result, totalCourse }: any) => {
-
-
-  return (<>
+  return (<Wrapper>
     <Header>전체 {totalCourse}개</Header>
     <Space $rem={0.875} />
     <CourseCards>
       {result && result?.map((v: any, i: number) => <CourseCard key={i} resultValue={v} />)}
     </CourseCards>
-  </>);
+  </Wrapper>);
 }
 
 export default SearchResult;
 
+const Wrapper = styled.div`
+  margin-top: 0.625rem;
+  margin-bottom: 0.875rem;
+`
 const Header = styled.div`
   padding-bottom: 0.75rem;
   padding-top: 0.75rem;
