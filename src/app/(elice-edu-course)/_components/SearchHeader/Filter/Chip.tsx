@@ -1,26 +1,28 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { ChipValue, SelectedChips, SetSelectedChips } from "@/types/Chip";
+import { ChipValue } from "@/types/Chip";
+import { useSelectedChipsStore } from "@/store/useSelectedChipsStore";
 
 interface Props {
-  selectedChips: SelectedChips;
-  setSelectedChips: SetSelectedChips;
   chipValue: ChipValue;
 }
 
-const Chip = ({ selectedChips, setSelectedChips, chipValue }: Props) => {
+const Chip = ({ chipValue }: Props) => {
+
+  const { value: selectedChips, setValue: setSelectedChips } = useSelectedChipsStore();
+
 
   const [isClicked, setIsClicked] = useState(() => {
-    if (selectedChips.findIndex(v => v.name === chipValue.name) === -1) return false;
+    if (selectedChips?.findIndex(v => v.name === chipValue.name) === -1) return false;
     else return true;
-  }
-  );
+  });
+
 
   const onClick = () => {
-    if (selectedChips.findIndex(v => v.name === chipValue.name) === -1) {
+    if (selectedChips?.findIndex(v => v.name === chipValue.name) === -1) {
       setSelectedChips([...selectedChips, chipValue]);
       setIsClicked(true);
     }
@@ -31,14 +33,17 @@ const Chip = ({ selectedChips, setSelectedChips, chipValue }: Props) => {
     }
   };
 
-  return (<Wrapper onClick={onClick} $isClicked={isClicked}>
-    {chipValue.name}
-  </Wrapper>);
+  useEffect(() => {
+    if (selectedChips?.findIndex(v => v.name === chipValue.name) === -1) setIsClicked(false);
+    else setIsClicked(true);
+  }, [selectedChips])
+
+  return (<Wrapper onClick={onClick} $isClicked={isClicked}>{chipValue.name}</Wrapper>);
 }
 
 export default Chip;
 
-const Wrapper = styled.button<{ $isClicked: boolean }>`
+const Wrapper = styled.button<{ $isClicked?: boolean }>`
   display: inline-flex;
   -webkit-box-align: center;
   align-items: center;

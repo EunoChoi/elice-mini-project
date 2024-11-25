@@ -1,8 +1,10 @@
 import { filterInfo } from "@/constants/filterInfo";
 import { ReadonlyURLSearchParams } from "next/navigation";
 
+import { ChipValue } from "@/types/Chip";
+
 export const getChipsCondition = (searchParams: ReadonlyURLSearchParams) => {
-  const newChips: { name: string; query_key: string; query_value: string; is_free: boolean; enroll_type: number; }[] = [];
+  const newChips: ChipValue[] = [];
   for (const chips of filterInfo) {
 
     filterInfo.forEach(filterType => {

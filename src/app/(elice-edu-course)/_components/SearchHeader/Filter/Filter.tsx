@@ -8,7 +8,7 @@ interface Props {
   setSelectedChips: SetSelectedChips;
 }
 
-const Filter = ({ selectedChips, setSelectedChips }: Props) => {
+const Filter = () => {
 
   return (<Wrapper>
     {filterInfo.map((cat) =>
@@ -16,7 +16,7 @@ const Filter = ({ selectedChips, setSelectedChips }: Props) => {
         <FilterTypeTitle>{cat.title}</FilterTypeTitle>
         <FilterTypeChips>
           {cat.items.map(chipValue =>
-            <Chip key={chipValue.name} chipValue={chipValue} selectedChips={selectedChips} setSelectedChips={setSelectedChips} />
+            <Chip key={chipValue.name} chipValue={chipValue} />
           )}
         </FilterTypeChips>
       </FilterType>

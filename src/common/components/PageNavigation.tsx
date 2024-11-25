@@ -2,8 +2,7 @@
 
 import styled from "styled-components";
 import ArrowButton from "./ArrowButton";
-import { useState } from "react";
-import { SetCurrentPage } from "@/types/Page";
+import { useCurrentPageStore } from "@/store/useCurrentPageStore";
 
 
 const makePagesArray = (current: number, total: number, range = 5) => {
@@ -18,26 +17,32 @@ const makePagesArray = (current: number, total: number, range = 5) => {
 }
 
 interface Props {
-  currentPage: number;
-  totalPage: number | undefined;
-  setCurrentPage: SetCurrentPage;
+  totalPage: number;
 }
 
-const PageNavigation = ({ currentPage, totalPage, setCurrentPage }: Props) => {
-  const arr = makePagesArray(currentPage, totalPage ? totalPage : 1, 5);
+const PageNavigation = ({ totalPage }: Props) => {
+
+  const PAGE_RANGE = 5;
+  const currentPage = useCurrentPageStore();
+  const currentPageValue = currentPage.value ? currentPage.value : 1;
+
+  const arr = makePagesArray(
+    currentPageValue,
+    totalPage,
+    PAGE_RANGE);
 
   return (<Wrapper>
-    <ArrowButton direction={'L'} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPage={totalPage} />
+    <ArrowButton direction={'L'} totalPage={totalPage} />
     <Numbers>
       {arr.map(v =>
         <Button
           key={v}
           onClick={() => {
-            setCurrentPage(v);
+            currentPage.setValue(v);
           }}
-          className={v === currentPage ? 'current' : ''}>{v}</Button>)}
+          className={v === currentPageValue ? 'current' : ''}>{v}</Button>)}
     </Numbers>
-    <ArrowButton direction={'R'} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPage={totalPage} />
+    <ArrowButton direction={'R'} totalPage={totalPage} />
   </Wrapper>);
 }
 

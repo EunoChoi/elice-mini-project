@@ -1,62 +1,37 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getChipsCondition } from '../functions/getChipsCondition';
 import { makeUrl } from '../functions/makeUrl';
-import { getCourses } from '@/app/(elice-edu-course)/_api/getCourse';
 
-import { Result } from '@/types/Result';
 import { ChipValue } from '@/types/Chip';
-
-import { maxLoadCount } from '@/constants/maxLoadCount';
+import { useSearchKeywordStore } from '@/store/useSearchKeywordStore';
+import { useSelectedChipsStore } from '@/store/useSelectedChipsStore';
+import { useCurrentPageStore } from '@/store/useCurrentPageStore';
 
 export default function useSearch() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchKeyword, setSearchKeyword] = useState<string | null>(searchParams.get("keyword"));
-  const [selectedChips, setSelectedChips] = useState<ChipValue[]>(
-    getChipsCondition(searchParams)
-  );
-
-  const [result, setResult] = useState<Result>();
-  const offset = 20 * (currentPage - 1);
-
-  const updateCourses = async () => {
-    const response = await getCourses(offset, maxLoadCount, searchKeyword, selectedChips);
-
-    const resultCourses = response?.courses;
-    const totalCourse = response?.course_count;
-    const totalPage = response?.course_count / 20;
-
-    setResult({ resultCourses, totalCourse, totalPage });
-  };
+  const { value: searchKeyword } = useSearchKeywordStore();
+  const { value: selectedChips, setValue: setSelectedChips } = useSelectedChipsStore();
+  const { value: currentPage, setValue: setCurrentPage } = useCurrentPageStore();
 
 
-
+  //새로고침 이후 query 보존
   useEffect(() => {
-    setCurrentPage(1);
-  }, [searchKeyword, selectedChips.length])
-
+    setSelectedChips(getChipsCondition(searchParams));
+  }, [])
+  //search, chip 선택에 따른 url query 변경
   useEffect(() => {
     const url = makeUrl(pathname, searchKeyword, selectedChips);
     router.push(url);
   }, [searchKeyword, selectedChips.length, currentPage]);
-
+  //search, chip 선택 시 1페이지로 이동 처리
   useEffect(() => {
-    updateCourses();
-  }, [searchParams, currentPage]);
+    setCurrentPage(1);
+  }, [searchKeyword, selectedChips.length])
 
   return {
-    searchKeyword,
-    setSearchKeyword,
-    selectedChips,
-    setSelectedChips,
-    currentPage,
-    setCurrentPage,
-
-    result,
-    setResult,
   };
 }

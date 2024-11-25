@@ -2,6 +2,7 @@
 
 import useInput from "@/common/hooks/useInput";
 import SearchIcon from "@/common/icons/SearchIcon";
+import { useSearchKeywordStore } from "@/store/useSearchKeywordStore";
 import { SetSearchKeyword } from "@/types/SearchKeyword";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -11,14 +12,15 @@ interface Props {
   setSearchKeyword: SetSearchKeyword;
 }
 
-const Search = ({ setSearchKeyword }: Props) => {
+const Search = () => {
+
+  const { value: searchKeyword, setValue: setSearchKeyword } = useSearchKeywordStore();
 
   const searchParams = useSearchParams();
   const { value, debouncedValue, onChange } = useInput(searchParams.get("keyword"), 400);
 
-
   useEffect(() => {
-    setSearchKeyword(debouncedValue);
+    debouncedValue && setSearchKeyword(debouncedValue);
   }, [debouncedValue]);
 
   return (<Wrapper>

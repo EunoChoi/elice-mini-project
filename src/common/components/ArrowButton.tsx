@@ -1,25 +1,33 @@
 import { styled } from "styled-components";
 import LeftArrowIcon from "../icons/LeftArrowIcon";
 import RightArrowIcon from "../icons/RightArrowIcon";
-import { SetCurrentPage } from "@/types/Page";
+
+import { useCurrentPageStore } from "@/store/useCurrentPageStore";
+import { useEffect, useState } from "react";
 
 interface Props {
   direction: 'L' | 'R';
-  currentPage: number;
-  totalPage: number | undefined;
-  setCurrentPage: SetCurrentPage;
+  totalPage: number;
 }
 
-const ArrowButton = ({ direction, currentPage, setCurrentPage, totalPage }: Props) => {
-  let isBlur = false;
-  totalPage = totalPage ? totalPage : 1;
+const ArrowButton = ({ direction, totalPage }: Props) => {
+
+  const [isBlur, setIsBlur] = useState(false);
+
+  const currentPage = useCurrentPageStore();
+  const currentPageValue = currentPage.value ? currentPage.value : 1;
+  const setCurrentPage = currentPage.setValue;
 
   const onClick = () => {
-    if (direction === 'L' && currentPage > 1) { setCurrentPage(currentPage - 1) }
-    else if (direction === 'R' && currentPage < totalPage) setCurrentPage(currentPage + 1)
+    if (direction === 'L' && currentPageValue > 1) { setCurrentPage(currentPageValue - 1) }
+    else if (direction === 'R' && currentPageValue < totalPage) setCurrentPage(currentPageValue + 1)
   }
 
-  if (direction === 'L' && currentPage === 1 || direction === 'R' && currentPage === Math.ceil(totalPage)) isBlur = true;
+  useEffect(() => {
+    if (direction === 'L' && currentPageValue === 1 || direction === 'R' && currentPageValue === Math.ceil(totalPage)) setIsBlur(true);
+    else setIsBlur(false);
+  }, [currentPageValue])
+
 
   return <Button onClick={onClick} className={isBlur ? 'arrow blur' : 'arrow'}>
     {direction === 'L' ?
