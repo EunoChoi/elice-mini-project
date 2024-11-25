@@ -41,7 +41,7 @@ export default function useSearch() {
 
   useEffect(() => {
     setCurrent(1);
-  }, [search])
+  }, [search, chips.length])
   useEffect(() => {
     const url = makeUrl(pathname, search, chips);
     router.push(url);
