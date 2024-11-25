@@ -68,11 +68,11 @@ const Wrapper = styled.button<{ $isClicked: boolean }>`
   font-size: 0.875rem;
   font-weight: 300;
 
-  background-color: ${(props) => props.$isClicked ? 'var(--elice-violet)' : 'var(--grey3)'};
+  background-color: ${(props) => props.$isClicked ? 'var(--elice-violet2)' : 'var(--grey3)'};
   color: ${(props) => props.$isClicked ? 'var(--white)' : 'var(--greyFont2)'};
 
   &:hover{
     background-color: var(--grey4);
-    background-color: ${(props) => props.$isClicked ? 'var(--elice-violet)' : 'var(--grey3)'};
+    background-color: ${(props) => props.$isClicked ? 'var(--elice-violet2)' : 'var(--grey3)'};
   }
 `
