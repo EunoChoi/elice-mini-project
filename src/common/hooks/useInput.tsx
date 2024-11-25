@@ -9,7 +9,7 @@ interface UseInputReturn {
   reset: () => void;
 }
 
-const useInput = (initialValue: string | null, delay: number = 500): UseInputReturn => {
+const useInput = (initialValue: string | null, delay: number = 300): UseInputReturn => {
   const [value, setValue] = useState<string | null>(initialValue);
   const [debouncedValue, setDebouncedValue] = useState<string | null>(initialValue);
 

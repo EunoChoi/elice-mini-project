@@ -8,19 +8,14 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import styled from "styled-components";
 
-interface Props {
-  setSearchKeyword: SetSearchKeyword;
-}
-
 const Search = () => {
-
-  const { value: searchKeyword, setValue: setSearchKeyword } = useSearchKeywordStore();
+  const { setValue: setSearchKeyword } = useSearchKeywordStore();
 
   const searchParams = useSearchParams();
   const { value, debouncedValue, onChange } = useInput(searchParams.get("keyword"), 400);
 
   useEffect(() => {
-    debouncedValue && setSearchKeyword(debouncedValue);
+    setSearchKeyword(debouncedValue ? debouncedValue : '');
   }, [debouncedValue]);
 
   return (<Wrapper>
