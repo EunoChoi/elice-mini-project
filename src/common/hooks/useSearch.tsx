@@ -38,6 +38,10 @@ export default function useSearch() {
   };
   console.log(result);
 
+
+  useEffect(() => {
+    setCurrent(1);
+  }, [search])
   useEffect(() => {
     const url = makeUrl(pathname, search, chips);
     router.push(url);
