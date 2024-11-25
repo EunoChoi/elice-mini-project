@@ -1,6 +1,5 @@
 'use client';
 
-// import { dummyClass } from "@/constants/dummyClass";
 import Image from "next/image";
 import styled from "styled-components";
 
@@ -9,7 +8,6 @@ import DiscountedPrice from "./DiscountedPrice";
 
 const CourseCard = ({ resultValue }: any) => {
   const priceType = () => {
-    console.log(resultValue?.is_free);
     if (resultValue.is_free === true) return <Free>무료</Free>;
     else if (resultValue.enroll_type === 4) return <Sub>구독</Sub>;
     else if (resultValue.is_discounted === true) {

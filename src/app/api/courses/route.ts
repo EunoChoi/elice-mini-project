@@ -1,4 +1,3 @@
-// app/api/courses/route.ts
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 
@@ -9,7 +8,6 @@ export async function GET(request: Request) {
     const response = await axios.get('https://api-rest.elice.io/org/academy/course/list/', {
       params: {
         filter_conditions: searchParams.get('filter_conditions'),
-        sort_by: searchParams.get('sort_by'),
         offset: searchParams.get('offset'),
         count: searchParams.get('count')
       },
