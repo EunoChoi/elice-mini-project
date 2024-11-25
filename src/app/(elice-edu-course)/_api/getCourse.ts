@@ -25,7 +25,9 @@ export const getCourses = async (
       {
         params: {
           filter_conditions: JSON.stringify({
-            $and: [{ title: `%${search}%` }, { $or: [{ status: 2 }, { status: 3 }, { status: 4 }] }, { $or: [...params] }],
+            $and: [{ title: `%${search}%` },
+            { $or: [{ status: 2 }, { status: 3 }, { status: 4 }] },
+            { $or: [...params] }],
           }),
           offset: offset,
           count: count,

@@ -32,7 +32,7 @@ const CourseCard = ({ resultValue }: any) => {
     );
   return (
     <Wrapper>
-      {resultValue?.image_file_url && <CourseImg src={resultValue?.image_file_url} width={300} height={300} alt={`${resultValue?.title}`} />}
+      {resultValue?.image_file_url && <CourseImg src={resultValue?.image_file_url} width={240} height={240} alt={`${resultValue?.title}`} />}
       <CourseText>
         <div>
           {tags.length === 0 ?
