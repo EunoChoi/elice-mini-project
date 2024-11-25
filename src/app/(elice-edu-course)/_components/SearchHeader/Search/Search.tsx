@@ -2,28 +2,27 @@
 
 import useInput from "@/common/hooks/useInput";
 import SearchIcon from "@/common/icons/SearchIcon";
+import { SetSearchKeyword } from "@/types/SearchKeyword";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import styled from "styled-components";
 
 interface Props {
-  setSearch: (s: string | null) => void;
+  setSearchKeyword: SetSearchKeyword;
 }
 
-const Search = ({ setSearch }: Props) => {
+const Search = ({ setSearchKeyword }: Props) => {
 
   const searchParams = useSearchParams();
   const { value, debouncedValue, onChange } = useInput(searchParams.get("keyword"), 400);
 
 
   useEffect(() => {
-    setSearch(debouncedValue);
+    setSearchKeyword(debouncedValue);
   }, [debouncedValue]);
 
   return (<Wrapper>
-    <SearchIconWrapper>
-      <SearchIcon width={18} height={18} />
-    </SearchIconWrapper>
+    <SearchIconWrapper><SearchIcon width={18} height={18} /></SearchIconWrapper>
     <SearchInputWrapper>
       <SearchInput
         placeholder="배우고 싶은 언어, 기술을 검색해 보세요"

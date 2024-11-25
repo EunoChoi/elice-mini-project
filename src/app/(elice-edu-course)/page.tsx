@@ -15,15 +15,27 @@ import PageNavigation from "@/common/components/PageNavigation";
 
 
 export default function Home() {
+  const {
+    searchKeyword,
+    setSearchKeyword,
+    selectedChips,
+    setSelectedChips,
+    currentPage,
+    setCurrentPage,
 
-  const { setSearch, chips, setChips, current, setCurrent, result, total, totalCourse } = useSearch();
+    result,
+    setResult,
+  } = useSearch();
 
 
   return (
     <Wrapper>
-      <SearchHeader chips={chips} setChips={setChips} setSearch={setSearch} />
-      <CourseSearchResult result={result?.courses} totalCourse={totalCourse} />
-      <PageNavigation current={current} setCurrent={setCurrent} total={total} />
+      <SearchHeader setSearchKeyword={setSearchKeyword} selectedChips={selectedChips} setSelectedChips={setSelectedChips} />
+      <CourseSearchResult result={result} />
+      <PageNavigation
+        currentPage={currentPage}
+        totalPage={result?.totalPage}
+        setCurrentPage={setCurrentPage} />
     </Wrapper>
   );
 }

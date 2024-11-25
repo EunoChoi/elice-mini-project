@@ -5,17 +5,19 @@ import styled from "styled-components";
 import CourseCard from "./CourseCard/CourseCard";
 import Space from "@/common/components/Space";
 
+import { Result } from "@/types/Result";
+
 interface Props {
-  result: any;
-  totalCourse: number;
+  result: Result | undefined;
 }
 
-const SearchResult = ({ result, totalCourse }: any) => {
+const SearchResult = ({ result }: Props) => {
   return (<Wrapper>
-    <Header>전체 {totalCourse}개</Header>
+    <Header>전체 {result ? result?.totalCourse : '0'}개</Header>
     <Space $rem={0.875} />
     <CourseCards>
-      {result && result?.map((v: any, i: number) => <CourseCard key={i} resultValue={v} />)}
+      {result?.resultCourses && result?.resultCourses
+        ?.map((course: any, i: number) => <CourseCard key={course.id} resultValue={course} />)}
     </CourseCards>
   </Wrapper>);
 }

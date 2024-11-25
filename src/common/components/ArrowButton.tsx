@@ -1,19 +1,25 @@
 import { styled } from "styled-components";
 import LeftArrowIcon from "../icons/LeftArrowIcon";
 import RightArrowIcon from "../icons/RightArrowIcon";
+import { SetCurrentPage } from "@/types/Page";
 
-const ArrowButton = ({ direction, current, setCurrent, total }: { direction: 'L' | 'R', current: number, total: number, setCurrent: (n: number) => void }) => {
+interface Props {
+  direction: 'L' | 'R';
+  currentPage: number;
+  totalPage: number | undefined;
+  setCurrentPage: SetCurrentPage;
+}
+
+const ArrowButton = ({ direction, currentPage, setCurrentPage, totalPage }: Props) => {
   let isBlur = false;
+  totalPage = totalPage ? totalPage : 1;
+
   const onClick = () => {
-    if (direction === 'L') {
-      if (current < 1) setCurrent(current - 1)
-    }
-    else {
-      if (current < total) setCurrent(current + 1)
-    }
+    if (direction === 'L' && currentPage < 1) { setCurrentPage(currentPage - 1) }
+    else if (direction === 'R' && currentPage < totalPage) setCurrentPage(currentPage + 1)
   }
 
-  if (direction === 'L' && current === 1 || direction === 'R' && current === Math.ceil(total)) isBlur = true;
+  if (direction === 'L' && currentPage === 1 || direction === 'R' && currentPage === Math.ceil(totalPage)) isBlur = true;
 
   return <Button onClick={onClick} className={isBlur ? 'arrow blur' : 'arrow'}>
     {direction === 'L' ?

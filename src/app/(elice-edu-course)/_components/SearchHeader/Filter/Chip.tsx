@@ -3,39 +3,30 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-interface ChipData {
-  name: string;
-  query_key: string;
-  query_value: string;
-  enroll_type: number;
-  is_free: boolean;
-}
+import { ChipValue, SelectedChips, SetSelectedChips } from "@/types/Chip";
 
 interface Props {
-  chipValue: ChipData;
-  chips: ChipData[];
-  setChips: (c: ChipData[]) => void;
+  selectedChips: SelectedChips;
+  setSelectedChips: SetSelectedChips;
+  chipValue: ChipValue;
 }
 
-const Chip = ({ chipValue, chips, setChips }: Props) => {
+const Chip = ({ selectedChips, setSelectedChips, chipValue }: Props) => {
 
-  const [isClicked, setIsClicked] = useState(
-    () => {
-      if (chips.findIndex(v => v.name === chipValue.name) === -1) {
-        return false;
-      }
-      else return true;
-    }
+  const [isClicked, setIsClicked] = useState(() => {
+    if (selectedChips.findIndex(v => v.name === chipValue.name) === -1) return false;
+    else return true;
+  }
   );
 
   const onClick = () => {
-    if (chips.findIndex(v => v.name === chipValue.name) === -1) {
-      setChips([...chips, chipValue]);
+    if (selectedChips.findIndex(v => v.name === chipValue.name) === -1) {
+      setSelectedChips([...selectedChips, chipValue]);
       setIsClicked(true);
     }
     else {
-      const temp = chips.filter(v => v.name !== chipValue.name);
-      setChips(temp);
+      const rest = selectedChips.filter(v => v.name !== chipValue.name);
+      setSelectedChips(rest);
       setIsClicked(false);
     }
   };

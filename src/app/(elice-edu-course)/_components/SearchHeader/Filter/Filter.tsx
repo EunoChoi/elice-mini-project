@@ -1,29 +1,22 @@
 import { filterInfo } from "@/constants/filterInfo";
 import styled from "styled-components";
 import Chip from "./Chip";
-
-interface ChipData {
-  name: string;
-  query_key: string;
-  query_value: string;
-  enroll_type: number;
-  is_free: boolean;
-}
+import { SelectedChips, SetSelectedChips } from "@/types/Chip";
 
 interface Props {
-  chips: ChipData[];
-  setChips: React.Dispatch<React.SetStateAction<ChipData[]>>;
+  selectedChips: SelectedChips;
+  setSelectedChips: SetSelectedChips;
 }
 
-const Filter = ({ chips, setChips }: Props) => {
+const Filter = ({ selectedChips, setSelectedChips }: Props) => {
 
   return (<Wrapper>
-    {filterInfo.map((filter) =>
-      <FilterType key={filter.title}>
-        <FilterTypeTitle>{filter.title}</FilterTypeTitle>
+    {filterInfo.map((cat) =>
+      <FilterType key={cat.title}>
+        <FilterTypeTitle>{cat.title}</FilterTypeTitle>
         <FilterTypeChips>
-          {filter.items.map(chipValue =>
-            <Chip key={chipValue.name} chipValue={chipValue} chips={chips} setChips={setChips} />
+          {cat.items.map(chipValue =>
+            <Chip key={chipValue.name} chipValue={chipValue} selectedChips={selectedChips} setSelectedChips={setSelectedChips} />
           )}
         </FilterTypeChips>
       </FilterType>

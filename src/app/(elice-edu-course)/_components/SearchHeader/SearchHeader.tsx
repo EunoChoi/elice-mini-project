@@ -1,28 +1,25 @@
 import Search from "./Search/Search";
 import Filter from "./Filter/Filter";
 import Space from "@/common/components/Space";
+import { Dispatch, SetStateAction } from "react";
 
-
-interface ChipData {
-  name: string;
-  query_key: string;
-  query_value: string;
-  enroll_type: number;
-  is_free: boolean;
-}
+import { ChipValue, SelectedChips, SetSelectedChips } from "@/types/Chip";
 
 interface Props {
-  chips: ChipData[];
-  setChips: React.Dispatch<React.SetStateAction<ChipData[]>>;
-  setSearch: (s: string | null) => void;
+  setSearchKeyword: Dispatch<SetStateAction<string | null>>;
+  setSelectedChips: SetSelectedChips;
+  selectedChips: SelectedChips;
 }
 
-const SearchHeader = ({ chips, setChips, setSearch }: Props) => {
+const SearchHeader = ({ setSearchKeyword, setSelectedChips, selectedChips }: Props) => {
   return (
     <>
-      <Search setSearch={setSearch} />
+      <Search
+        setSearchKeyword={setSearchKeyword} />
       <Space $rem={0.625} />
-      <Filter chips={chips} setChips={setChips} />
+      <Filter
+        selectedChips={selectedChips}
+        setSelectedChips={setSelectedChips} />
     </>
   );
 }
