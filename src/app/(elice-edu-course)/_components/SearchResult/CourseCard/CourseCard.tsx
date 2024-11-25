@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { makeWon } from "@/common/functions/makeWon";
 import DiscountedPrice from "./DiscountedPrice";
 
+import tempCardImage from '/public/img/tempCardImage.png'
+
 const CourseCard = ({ resultValue }: any) => {
   const priceType = () => {
     if (resultValue.is_free === true) return <Free>무료</Free>;
@@ -32,7 +34,12 @@ const CourseCard = ({ resultValue }: any) => {
     );
   return (
     <Wrapper>
-      {resultValue?.image_file_url && <CourseImg src={resultValue?.image_file_url} width={240} height={240} alt={`${resultValue?.title}`} />}
+      <CourseImg
+        src={resultValue?.image_file_url ? resultValue?.image_file_url : tempCardImage}
+        width={240}
+        height={240}
+        alt={`${resultValue?.title}`}
+      />
       <CourseText>
         <div>
           {tags.length === 0 ?
