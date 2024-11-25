@@ -15,7 +15,7 @@ const ArrowButton = ({ direction, currentPage, setCurrentPage, totalPage }: Prop
   totalPage = totalPage ? totalPage : 1;
 
   const onClick = () => {
-    if (direction === 'L' && currentPage < 1) { setCurrentPage(currentPage - 1) }
+    if (direction === 'L' && currentPage > 1) { setCurrentPage(currentPage - 1) }
     else if (direction === 'R' && currentPage < totalPage) setCurrentPage(currentPage + 1)
   }
 
