@@ -8,14 +8,19 @@ import CourseSearchResult from "./_components/SearchResult/SearchResult";
 import SearchHeader from "./_components/SearchHeader/SearchHeader";
 import PageNavigation from "@/common/components/PageNavigation";
 
+import useSearch from "@/common/hooks/useSearch";
+
 export default function Home() {
+
+  const { search, setSearch, chips, setChips, current, setCurrent, result, total } = useSearch();
+
   return (
     <Wrapper>
-      <SearchHeader />
+      <SearchHeader chips={chips} setChips={setChips} setSearch={setSearch} />
       <Space $rem={0.625} />
-      <CourseSearchResult />
+      <CourseSearchResult result={result?.courses} total={total} />
       <Space $rem={0.75} />
-      <PageNavigation />
+      <PageNavigation current={current} setCurrent={setCurrent} total={total} />
     </Wrapper>
   );
 }

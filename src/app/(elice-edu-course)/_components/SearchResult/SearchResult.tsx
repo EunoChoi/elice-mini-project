@@ -2,23 +2,17 @@
 
 import styled from "styled-components";
 
-import { dummyClass } from "@/constants/dummyClass";
 import CourseCard from "./CourseCard/CourseCard";
 import Space from "@/common/components/Space";
 
-const SearchResult = () => {
+const SearchResult = ({ result, total }: any) => {
 
 
   return (<>
-    <Header>전체 {0}개</Header>
+    <Header>전체 {total}개</Header>
     <Space $rem={0.875} />
     <CourseCards>
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
+      {result && result?.map((v: any, i: number) => <CourseCard key={i} resultValue={v} />)}
     </CourseCards>
   </>);
 }
