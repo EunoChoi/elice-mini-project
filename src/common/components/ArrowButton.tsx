@@ -13,7 +13,7 @@ const ArrowButton = ({ direction, current, setCurrent, total }: { direction: 'L'
     }
   }
 
-  if (direction === 'L' && current === 1 || direction === 'R' && current === total) isBlur = true;
+  if (direction === 'L' && current === 1 || direction === 'R' && current === Math.ceil(total)) isBlur = true;
 
   return <Button onClick={onClick} className={isBlur ? 'arrow blur' : 'arrow'}>
     {direction === 'L' ?
