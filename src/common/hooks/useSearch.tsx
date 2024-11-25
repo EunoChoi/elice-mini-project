@@ -7,7 +7,7 @@ import { getCourses } from '@/app/(elice-edu-course)/_api/getCourse';
 import { Result } from '@/types/Result';
 import { ChipValue } from '@/types/Chip';
 
-
+import { maxLoadCount } from '@/constants/maxLoadCount';
 
 export default function useSearch() {
   const router = useRouter();
@@ -21,13 +21,10 @@ export default function useSearch() {
   );
 
   const [result, setResult] = useState<Result>();
-
-  const count = 20;
   const offset = 20 * (currentPage - 1);
 
-
   const updateCourses = async () => {
-    const response = await getCourses(offset, count, searchKeyword, selectedChips);
+    const response = await getCourses(offset, maxLoadCount, searchKeyword, selectedChips);
 
     const resultCourses = response?.courses;
     const totalCourse = response?.course_count;
@@ -35,7 +32,7 @@ export default function useSearch() {
 
     setResult({ resultCourses, totalCourse, totalPage });
   };
-  console.log(result?.resultCourses);
+
 
 
   useEffect(() => {
@@ -49,8 +46,7 @@ export default function useSearch() {
 
   useEffect(() => {
     updateCourses();
-
-  }, [searchParams]);
+  }, [searchParams, currentPage]);
 
   return {
     searchKeyword,
