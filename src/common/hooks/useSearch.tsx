@@ -34,7 +34,7 @@ export default function useSearch() {
   const updateCourses = async () => {
     const response = await getCourses(offset, count, search, chips);
     setResult(response);
-    setTotal(response?.course_count);
+    setTotal(response?.course_count / 20);
   };
   console.log(result);
 
