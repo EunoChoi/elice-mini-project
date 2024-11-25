@@ -12,6 +12,7 @@ import { useSearchKeywordStore } from "@/store/useSearchKeywordStore";
 import { useSelectedChipsStore } from "@/store/useSelectedChipsStore";
 import { useCurrentPageStore } from "@/store/useCurrentPageStore";
 import PageNavigation from "@/common/components/PageNavigation";
+import CourseCardEmpty from "./CourseCardEmtpy/CourseCardEmtpy";
 
 const SearchResult = () => {
 
@@ -30,10 +31,16 @@ const SearchResult = () => {
 
   return (
     <Wrapper>
-      <Header>전체 {searchResult ? searchResult?.course_count : '0'}개</Header>
+      <Header>전체 {searchResult ? searchResult?.course_count : '-'}개</Header>
       <Space $rem={0.875} />
       <CourseCards>
-        {searchResult?.courses && searchResult?.courses?.map((course: any, i: number) => <CourseCard key={course.id} resultValue={course} />)}
+        {searchResult?.courses ?
+          searchResult?.courses?.map((course: any, i: number) => <CourseCard key={course.id} resultValue={course} />)
+          :
+          Array.from({ length: maxLoadCount }, (_, index) => (
+            <CourseCardEmpty key={`empty-${index}`} />
+          ))
+        }
       </CourseCards>
       <PageNavigation totalPage={totalPage ? totalPage : 1} />
     </Wrapper>
