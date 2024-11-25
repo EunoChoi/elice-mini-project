@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import StyledComponentsRegistry from './lib/registry'
 
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export default function RootLayout({
       <body>
         <link href="https://font.elice.io/css?family=Elice+DX+Neolli" rel="stylesheet" />
         <link rel="stylesheet" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
-        {children}
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>
   );
